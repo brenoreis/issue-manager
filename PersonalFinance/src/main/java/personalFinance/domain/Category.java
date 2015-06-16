@@ -1,4 +1,4 @@
-package personalFinance.entity;
+package personalFinance.domain;
 
 import org.springframework.data.annotation.Id;
 

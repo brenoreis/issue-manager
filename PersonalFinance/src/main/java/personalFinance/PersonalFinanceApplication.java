@@ -5,11 +5,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import personalFinance.entity.Category;
+import personalFinance.domain.Category;
 import personalFinance.repository.CategoryRepository;
 
 @SpringBootApplication
-public class PersonalFinanceApplication implements CommandLineRunner{
+public class PersonalFinanceApplication {
 
 	@Autowired
 	private CategoryRepository repository;
@@ -18,6 +18,7 @@ public class PersonalFinanceApplication implements CommandLineRunner{
         SpringApplication.run(PersonalFinanceApplication.class, args);
     }
 
+    /*
 	@Override
 	public void run(String... arg0) throws Exception {
 		
@@ -42,7 +43,7 @@ public class PersonalFinanceApplication implements CommandLineRunner{
 		System.out.println(repository.findByName("Rent"));
 
 		
-	}
+	} */
 }
 
 
