@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import personalFinance.domain.Category;
 import personalFinance.repository.CategoryRepository;
@@ -19,6 +20,7 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
+	@Transactional
 	public Category save(final Category category) {
 		return repository.save(category);
 	}

@@ -2,8 +2,11 @@ package personalFinance.controller;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,6 +22,7 @@ import personalFinance.service.exception.CategoryAlreadyExistsException;
 @Controller
 public class CategoryController {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(CategoryController.class);
 	private final CategoryService categoryService;
 
 	@Autowired
@@ -30,36 +34,31 @@ public class CategoryController {
 	public String index() {
 		return "index";
 	}
-
+/*
 	@RequestMapping(value = "/category", method = RequestMethod.POST)
 	public Category createCategory(@RequestBody @Valid final Category category) {
 		return categoryService.save(category);
 	}
-
-	@RequestMapping("/category_list.html")
-	public ModelAndView getListCategoriesView() {
-		ModelMap model = new ModelMap();
+*/
+	@RequestMapping(value= "/categories", method = RequestMethod.GET)
+	public String getListCategoriesView(Model model) {
+		LOGGER.debug("Received request to get category list view");
 		model.addAttribute("categories", categoryService.getList());
-		return new ModelAndView("category_list", model);
+		return "category_list";
 	}
 	
-    @RequestMapping(value = "/category_create.html", method = RequestMethod.GET)
-    public ModelAndView getCreateCategoryView() {
-        return new ModelAndView("category_create", "form", new Category());
+    @RequestMapping(value = "/category/create", method = RequestMethod.GET)
+    public String getCreateCategoryView(Model model) {
+    	LOGGER.debug("Received request for category create view");
+    	model.addAttribute("category", new Category());
+        return "category_create";
     }
     
-	@RequestMapping(value = "/category_create.html", method = RequestMethod.POST)
-	public String createCategory(@ModelAttribute("form") @Valid Category form, BindingResult result) {
-	    if (result.hasErrors()) {
-	        return "category_create";
-	    }
-	    try {
-	    	categoryService.save(new Category(form.getName(), form.getDescription()));
-	    } catch (CategoryAlreadyExistsException e) {
-	        result.reject("category.error.exists");
-	        return "category_create";
-	    }
-	    return "redirect:/category_list.html";
+	@RequestMapping(value = "/category/create", method = RequestMethod.POST)
+	public String createCategory(@ModelAttribute("category") Category category) {
+		LOGGER.debug("Received request to create {}", category);
+    	categoryService.save(category);
+	    return "category_list";
 	}
 
 }
