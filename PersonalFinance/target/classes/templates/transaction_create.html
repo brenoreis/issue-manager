@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:text="#{transaction.create}"></title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1 th:text="#{transaction.create}"></h1>
+	<a href="/transactions" th:text="#{transaction.list}"></a>
+	<form method="POST" action="/transaction/create">
+		<table>
+			<caption th:text="#{transaction.create}"></caption>
+			<thead>
+				<tr>
+					<th th:text="#{transaction.date.label}"></th>
+					<th th:text="#{transaction.description.label}"></th>
+					<th th:text="#{transaction.label}"></th>
+					<th th:text="#{transaction.amount.label}"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><input type="text" th:field="${transaction.date}" /></td>
+					<td><input type="text" th:field="${transaction.description}" /></td>
+					<td><select th:field="${transaction.category}">
+							<option value="NONE">---- Select ----</option>
+							<option th:each="category : ${categories}" th:value="${category}"
+								th:text="${category.name}"></option>
+					</select></td>
+					<td><input type="text" th:field="${transaction.amount}" /></td>
+				</tr>
+				<tr>
+					<td>
+						<button type="submit" th:text="#{create.button.label}"></button>
+					</td>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+</body>
+</html>

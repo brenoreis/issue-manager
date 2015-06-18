@@ -16,6 +16,10 @@ public class Category {
         this.name = name;
         this.description = description;
     }
+    
+    public String getId() {
+		return id;
+	}
 
 	public String getName() {
 		return name;
