@@ -11,7 +11,7 @@
 			<tr>
 				<th th:text="#{transaction.date.label}"></th>
 				<th th:text="#{transaction.description.label}"></th>
-				<th th:text="#{transaction.label}"></th>
+				<th th:text="#{category.label}"></th>
 				<th th:text="#{transaction.amount.label}"></th>
 			</tr>
 		</thead>
@@ -19,11 +19,13 @@
 			<tr th:each="transaction : ${transactions}">
 				<td th:text="${transaction.date}"></td>
 				<td th:text="${transaction.description}"></td>
-				<td th:text="${transaction.category}"></td>
+				<td th:text="${transaction.category.name}"></td>
 				<td th:text="${transaction.amount}"></td>
+				<td><a th:href="@{/transaction/edit/{id}(id=${transaction.id})}" th:text="#{edit.label}"></a></td>
+				<td><a th:href="@{/transaction/delete/{id}(id=${transaction.id})}" th:text="#{delete.label}"></a></td>
 			</tr>
 		</tbody>
 	</table>
-	<a href="/transaction/create" th:text="#{transaction.create}"></a>
+	<p><a th:href="@{/transaction/create}" th:text="#{transaction.create}"></a></p>
 </body>
 </html>

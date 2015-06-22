@@ -25,6 +25,10 @@ public class Transaction {
         this.amount = amount;
     }
 
+	public String getId() {
+		return id;
+	}
+	
 	public String getDescription() {
 		return description;
 	}
@@ -56,7 +60,6 @@ public class Transaction {
 	public void setAmount(Double amount) {
 		this.amount = amount;
 	}
-
 	public String toString() {
 		return String.format("Transaction[id=%s, Date='%s', Description='%s', Category='%s', Amount='%s']",
 				id, DateFormat.getInstance().format(date), description, category.getName(), amount.toString());

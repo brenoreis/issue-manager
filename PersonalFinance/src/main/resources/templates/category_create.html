@@ -7,7 +7,7 @@
 <body>
 	<h1 th:text="#{category.create}"></h1>
 	<a href="/categories" th:text="#{category.list}"></a>
-	<form method="POST" action="/category/create">
+	<form method="POST" th:action="@{/category/create}">
 		<table>
 			<caption th:text="#{category.create}"></caption>
 			<thead>

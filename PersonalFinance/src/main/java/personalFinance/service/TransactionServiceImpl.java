@@ -24,8 +24,17 @@ public class TransactionServiceImpl implements TransactionService {
 
 	@Override
 	public List<Transaction> getList() {
-		
 		return repository.findAll();
+	}
+	
+	@Override
+	public void delete(String id) {
+		repository.delete(id);
+	}
+	
+	@Override
+	public Transaction findOne(String id) {
+		return repository.findOne(id);
 	}
 
 }
