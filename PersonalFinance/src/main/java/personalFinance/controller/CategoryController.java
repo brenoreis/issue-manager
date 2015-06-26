@@ -22,8 +22,9 @@ public class CategoryController {
 	@RequestMapping(value= "/categories", method = RequestMethod.GET)
 	public String listCategories(Model model) {
 		LOGGER.debug("Received request to get category list view");
+		model.addAttribute("category", new Category());
 		model.addAttribute("categories", categoryService.getList());
-		return "category_list";
+		return "categoryList";
 	}
 	
     @RequestMapping(value = "/category/create", method = RequestMethod.GET)

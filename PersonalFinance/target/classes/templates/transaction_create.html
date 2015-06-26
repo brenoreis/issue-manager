@@ -27,9 +27,9 @@
 					<td><select	th:field="*{category}">
 							<option value="NONE">---- Select ----</option>
 							<option th:each="ctgr : ${categories}"
-								th:value="${ctgr.id}" th:text="${ctgr.name}" th:selected="${ctgr == transaction.category}"></option>
+								th:value="${ctgr.id}" th:text="${ctgr.name}" th:selected="${ctgr.id == transaction.category.id}"></option>
 						</select>
-						<input type="hidden" th:field="${transaction.category.id}" />
+					<input type="hidden" th:field="${transaction.category.id}" />						
 					</td>
 					<td><input type="text" th:field="*{amount}" /></td>
 				</tr>

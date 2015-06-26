@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import personalFinance.domain.Category;
 import personalFinance.domain.Transaction;
+import personalFinance.service.AccountService;
 import personalFinance.service.CategoryService;
 import personalFinance.service.TransactionService;
 
@@ -25,12 +26,33 @@ public class TransactionController {
 	
 	@Autowired
 	private CategoryService categoryService;
+	
+	@Autowired
+	private AccountService accountService;
 
+	@RequestMapping(value= "/", method = RequestMethod.GET)
+	public String home(Model model) {
+		LOGGER.debug("Received request to get home view");
+		model.addAttribute("transactions", transactionService.getList());
+		model.addAttribute("categories", categoryService.getList());
+		model.addAttribute("accounts", accountService.getList());
+    	Transaction transaction = new Transaction();
+    	transaction.setCategory(new Category());
+    	model.addAttribute("transaction", transaction);
+
+		return "transactionList";
+	}
+	
 	@RequestMapping(value= "/transactions", method = RequestMethod.GET)
 	public String listTransactions(Model model) {
-		LOGGER.debug("Received request to get Transactions list view");
+		LOGGER.debug("Received request to get home view");
 		model.addAttribute("transactions", transactionService.getList());
-		return "transaction_list";
+		model.addAttribute("categories", categoryService.getList());
+		model.addAttribute("accounts", accountService.getList());
+    	Transaction transaction = new Transaction();
+    	transaction.setCategory(new Category());
+    	model.addAttribute("transaction", transaction);
+		return "transactionList";
 	}
 	
     @RequestMapping(value = "/transaction/create", method = RequestMethod.GET)
