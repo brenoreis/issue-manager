@@ -26,13 +26,6 @@ public class CategoryController {
 		model.addAttribute("categories", categoryService.getList());
 		return "categoryList";
 	}
-	
-    @RequestMapping(value = "/category/create", method = RequestMethod.GET)
-    public String createCategory(Model model) {
-    	LOGGER.debug("Received request for category create view");
-    	model.addAttribute("category", new Category());
-        return "category_create";
-    }
     
 	@RequestMapping(value = "/category/create", method = RequestMethod.POST)
 	public String createCategory(@ModelAttribute("category") Category category, Model model) {

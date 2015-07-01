@@ -10,6 +10,7 @@ public class Account {
 	private String name;
 	private String description;
 	private Double balance;
+	private Currency currency;
 	
 	public Account() {}
 
@@ -52,10 +53,19 @@ public class Account {
 		this.balance += balance;
 	}
 	
-	public String toString() {
-		return String.format("Acount[id=%s, Name='%s', Description='%s', Balance=%s]",
-				id, name, description, balance);
+	public Currency getCurrency() {
+		return currency;
 	}
+
+	public void setCurrency(Currency currency) {
+		this.currency = currency;
+	}
+
+	public String toString() {
+		return String.format("Account[id=%s, Name='%s', Description='%s', Balance=%s, Currency=%s]",
+				id, name, description, balance, currency.getSymbol());
+	}
+
 
 }
 

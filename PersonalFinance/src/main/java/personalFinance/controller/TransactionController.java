@@ -30,7 +30,7 @@ public class TransactionController {
 	@Autowired
 	private AccountService accountService;
 
-	@RequestMapping(value= "/", method = RequestMethod.GET)
+	@RequestMapping(value= {"/", "/transactions"}, method = RequestMethod.GET)
 	public String home(Model model) {
 		LOGGER.debug("Received request to get home view");
 		model.addAttribute("transactions", transactionService.getList());
@@ -43,28 +43,6 @@ public class TransactionController {
 		return "transactionList";
 	}
 	
-	@RequestMapping(value= "/transactions", method = RequestMethod.GET)
-	public String listTransactions(Model model) {
-		LOGGER.debug("Received request to get home view");
-		model.addAttribute("transactions", transactionService.getList());
-		model.addAttribute("categories", categoryService.getList());
-		model.addAttribute("accounts", accountService.getList());
-    	Transaction transaction = new Transaction();
-    	transaction.setCategory(new Category());
-    	model.addAttribute("transaction", transaction);
-		return "transactionList";
-	}
-	
-    @RequestMapping(value = "/transaction/create", method = RequestMethod.GET)
-    public String createTransaction(Model model) {
-    	LOGGER.debug("Received request for category create view");
-    	Transaction transaction = new Transaction();
-    	transaction.setCategory(new Category());
-    	model.addAttribute("transaction", transaction);
-    	model.addAttribute("categories", categoryService.getList());
-        return "transaction_create";
-    }
-    
 	@RequestMapping(value = "/transaction/create", method = RequestMethod.POST)
 	public String createTransaction(@ModelAttribute("transaction") Transaction transaction, @ModelAttribute("category") Category category, Model model) {
 		LOGGER.debug("Received request to create {}", transaction);
