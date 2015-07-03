@@ -1,10 +1,17 @@
 package personalFinance.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,9 +51,9 @@ public class TransactionController {
 	}
 	
 	@RequestMapping(value = "/transaction/create", method = RequestMethod.POST)
-	public String createTransaction(@ModelAttribute("transaction") Transaction transaction, @ModelAttribute("category") Category category, Model model) {
+	public String createTransaction(@ModelAttribute("transaction") Transaction transaction, @ModelAttribute("category") Category category, BindingResult bindingResults, Model model) {
 		LOGGER.debug("Received request to create {}", transaction);
-		transaction.setCategory(category);
+		//transaction.setCategory(category);
 		transactionService.save(transaction);
 	    return "redirect:/transactions";
 	}
@@ -65,5 +72,13 @@ public class TransactionController {
     	model.addAttribute("categories", categoryService.getList());
     	return "transaction_create";
     }
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+    	SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
+        sdf.setLenient(true);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
+    }
+
 
 }

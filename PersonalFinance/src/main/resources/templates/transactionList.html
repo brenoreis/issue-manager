@@ -38,6 +38,10 @@
 <link href="../webjars/font-awesome/4.3.0/css/font-awesome.min.css"
 	rel="stylesheet" type="text/css" />
 
+<link
+	href="../webjars/bootstrap-datetimepicker/2.3.1/css/bootstrap-datetimepicker.min.css"
+	rel="stylesheet" type="text/css" />
+
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -84,16 +88,23 @@
 										</thead>
 										<tbody>
 											<tr>
-												<td><input type="text" class="form-control"
-													th:field="${transaction.date}" /></td>
+												<td width="20%"><div class='input-group date' id='datetimepicker1'>
+														<input type='text' class="form-control"
+															th:field="${transaction.date}" /> <span
+															class="input-group-addon"> <span
+															class="glyphicon glyphicon-calendar"></span>
+														</span>
+													</div></td>
 												<td><input type="text" class="form-control"
 													th:field="${transaction.description}" /></td>
-												<td><select class="form-control" th:field="${transaction.category}">
+												<td><select class="form-control"
+													th:field="${transaction.category}">
 														<option value="NONE">---- Select ----</option>
 														<option th:each="ctgr : ${categories}"
 															th:value="${ctgr.id}" th:text="${ctgr.name}"></option>
 												</select></td>
-												<td><select class="form-control" th:field="${transaction.account}">
+												<td><select class="form-control"
+													th:field="${transaction.account}">
 														<option value="NONE">---- Select ----</option>
 														<option th:each="account : ${accounts}"
 															th:value="${account.id}" th:text="${account.name}"></option>
@@ -172,6 +183,10 @@
 		<script
 			src="../webjars/startbootstrap-sb-admin-2/1.0.2/js/sb-admin-2.js"></script>
 
+		<script src="../webjars/momentjs/2.10.3/min/moment.min.js"></script>
+
+		<script
+			src="../webjars/bootstrap-datetimepicker/2.3.1/js/bootstrap-datetimepicker.min.js"></script>
 
 
 		<!-- Page-Level Demo Scripts - Tables - Use for reference -->
@@ -180,6 +195,16 @@
 				$('#dataTables-example').DataTable({
 					responsive : true
 				});
+			});
+		</script>
+
+		<script type="text/javascript">
+			$(function() {
+				$('#datetimepicker1').datetimepicker({
+                    format: 'dd/mm/yyyy',
+                    minView: 2,
+                    autoclose: true
+                });
 			});
 		</script>
 	</div>
